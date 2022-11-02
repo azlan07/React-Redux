@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
+import { GoogleLogin } from 'react-google-login';
 
 async function doLogin({ email, password }) {
     // Gunakan endpoint-mu sendiri
@@ -17,6 +18,21 @@ async function doLogin({ email, password }) {
     return data.token;
 }
 
+async function doLoginWithGoogle(token) {
+    // Sesuaikan endpoint
+    const response = await fetch("http://localhost:8000/v1/auth/google", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            token
+        }),
+    });
+    const data = await response.json();
+    return data.token;
+}
+
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -26,7 +42,7 @@ function Login() {
 
     useEffect(() => {
         setIsLoggedIn(!!token);
-      }, [token]);
+    }, [token]);
 
     function handleSubmit(e) {
         setIsLoading(true);
@@ -35,6 +51,26 @@ function Login() {
             .then((token) => localStorage.setItem("token", token))
             .catch((err) => console.log(err.message))
             .finally(() => setIsLoading(false));
+    }
+
+    const haldleSuccessGoogle = (response) => {
+        console.log(response);
+        console.log(response.tokenId);
+        if (response.tokenId) {
+            doLoginWithGoogle(response.tokenId)
+                .then((token) => {
+                    localStorage.setItem(
+                        "token", token);
+                    setIsLoggedIn(token);
+                })
+                .catch((err) => console.log(err.message))
+                .finally(() => setIsLoading(false));
+        }
+    }
+
+    const haldleFailureGoogle = (response) => {
+        console.log(response);
+        alert(response);
     }
 
     return (
@@ -56,6 +92,14 @@ function Login() {
                 <button type="submit" className="btn btn-primary btn-block mb-4">
                     SIGN IN
                 </button>
+                <br></br>
+                <GoogleLogin
+                    clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+                    buttonText="Login with Google"
+                    onSuccess={haldleSuccessGoogle}
+                    onFailure={haldleFailureGoogle}
+                    cookiePolicy={'single_host_origin'}
+                />
 
                 {/* <!-- Register buttons --> */}
                 {/* <div className="text-center">
