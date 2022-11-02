@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-export const GET_LIST_CAR = "GET_LIST_CAR";
+export const GET_LIST_KONTAK = "GET_LIST_KONTAK";
 
-export const getListCar = () =>{
+export const getListKontak = () =>{
     console.log("2.Masuk Actions");
     return(dispatch) => {
         //laoding
         dispatch({
-            type: GET_LIST_CAR,
+            type: GET_LIST_KONTAK,
             payload: {
                 loading: true,
                 data: false,
@@ -24,7 +24,7 @@ export const getListCar = () =>{
             //Berhasil get APi
             console.log("3.Berhasil", response);
             dispatch({
-                type: GET_LIST_CAR,
+                type: GET_LIST_KONTAK,
                 payload: {
                     loading: false,
                     data: response.data,
@@ -35,7 +35,7 @@ export const getListCar = () =>{
             //gagal get APi
             console.log("3.Gagal : ", error);
             dispatch({
-                type: GET_LIST_CAR,
+                type: GET_LIST_KONTAK,
                 payload: {
                     loading: false,
                     data: false,

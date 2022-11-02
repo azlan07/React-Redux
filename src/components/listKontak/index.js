@@ -1,29 +1,30 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { getListCar } from "../../actions/carAction"
-import Navbar from "../navbar"
+import { getListKontak } from "../../actions/kontakAction"
+import kontak from "../../reducers/kontak"
+import Dashboard from "../Dashboard"
 
-const ListCar = () =>{
-    const {getListCarResult,getListCarLoading,getListCarError} = useSelector((state) => state.CarReducer)
+const ListKontak = () =>{
+    const {getListKontakResult,getListKontakLoading,getListKontakError} = useSelector((state) => state.KontakReducer)
 
     const dispatch = useDispatch()
 
  
     useEffect(() =>{
-        //panggil action getListCar
+        //panggil action getListKontak
         console.log("1. use effect component did mount");
-        dispatch(getListCar())
+        dispatch(getListKontak())
 
     },[dispatch])
 
     return(
         <>
-        <Navbar/>
+        <Dashboard/>
             <div style={{ padding:'50px' }}>
                 <h2>List Cars</h2>
                 <hr/>
-                {getListCarResult ? (
-                    getListCarResult.map((data)=>{
+                {getListKontakResult ? (
+                    getListKontakResult.map((data)=>{
                         return(
                             <div className="container">
                                 <table className="table table-hover">
@@ -42,10 +43,10 @@ const ListCar = () =>{
                             </div>
                         )
                     })
-                ) : getListCarLoading ? (
+                ) : getListKontakLoading ? (
                     <p>Loading</p>
                 ) : (
-                    <p>{getListCarError ? getListCarError : "Data Kosong"}</p>
+                    <p>{getListKontakError ? getListKontakError : "Data Kosong"}</p>
                 )}
             
             </div>
@@ -53,4 +54,4 @@ const ListCar = () =>{
     )
 }
 
-export default ListCar
+export default ListKontak

@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
-import CarReducer from './car';
+import KontakReducer from './kontak';
 
 export default combineReducers({
-    CarReducer
+    KontakReducer
 })
