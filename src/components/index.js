@@ -4,7 +4,6 @@ import Dashboard from "./dashboard";
 import Protected from "./protected";
 import About from "./about";
 import Blog from "./blog";
-import ListCar from "./listKontak";
 
 // Export Components
-export {Login ,Protected ,Dashboard ,About ,Blog ,ListCar}
+export {Login ,Protected ,Dashboard ,About ,Blog}

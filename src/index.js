@@ -8,20 +8,13 @@ import {
 import './index.css';
 // import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { createStore, compose, applyMiddleware } from 'redux'
-import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
 
 
 // Import Components
 import { Login, Protected, Dashboard, About, Blog, ListCar } from './components';
-import reducers from './reducers'
-const store = createStore(reducers, compose(applyMiddleware(thunk)))
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={
@@ -39,16 +32,9 @@ root.render(
               <Blog />
             </Protected>}
           />
-          <Route path='/list-cars' element={          
-            <Protected>
-                <ListCar />
-            </Protected>}
-          />
           <Route path='/login' element={<Login />} />
         </Routes>
       </BrowserRouter>
-    </Provider>
-  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
