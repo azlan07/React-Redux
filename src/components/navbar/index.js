@@ -27,6 +27,9 @@ function Navbar() {
                         <li className="nav-item">
                             <Link className="nav-link" to="/blog">Blog</Link>
                         </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/car">Car</Link>
+                        </li>
                     </ul>
                     <button className="btn btn-primary" onClick={handleLogout}>Logout</button>
                 </div>
